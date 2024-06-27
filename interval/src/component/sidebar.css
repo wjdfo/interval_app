@@ -1,0 +1,10 @@
+.sidebar {
+    flex : 1;
+    background-color: aquamarine;
+    position : fixed;
+}
+
+.sidebarTitle {
+    padding-left: 20px;
+}
+
