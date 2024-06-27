@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sidebar.css";
 
+function Sidebar(props) {
+    const [selected, setSelected] = useState(null);
 
-function Sidebar({width}) {
-
-
-
+    const selectItem = (e) => {
+        setSelected(e.target.id);
+    };
 
     return (
         <div className="sidebar" style = {{}}>
@@ -13,8 +14,13 @@ function Sidebar({width}) {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Sidebar test</h3>
                     <ul className="sidebarList">
-                        <li className="sidebarItem">Menu1</li>
-                        <li className="sidebarItem">Menu2</li>
+                        {
+                            props.timers.map((e, i)=> {
+                                return (<h3 className = {props.timers[i].id === selected ? "selected" : "no"} id = {props.timers[i].id} onClick = {selectItem}>
+                                            {props.timers[i].id}
+                                        </h3>)
+                            })
+                        }
                     </ul>
                 </div>
             </div>
