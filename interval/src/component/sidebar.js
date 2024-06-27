@@ -8,6 +8,21 @@ function Sidebar(props) {
         setSelected(e.target.id);
     };
 
+    const DeleteButton = ({deleteList}) => {
+        function deleteConfirm() {
+            if (window.confirm(selected+"를 삭제할까요?")) {
+                alert("삭제 되었습니다.");
+                return true;
+            } else return false;
+        }
+
+        return (
+            <span className = "delete-button" onClick = {() => {
+                if (deleteConfirm()) deleteList(selected);
+            }}>🗑</span>
+        )
+    }
+
     return (
         <div className="sidebar" style = {{}}>
             <div className="sidebarWrapper">
@@ -16,9 +31,17 @@ function Sidebar(props) {
                     <ul className="sidebarList">
                         {
                             props.timers.map((e, i)=> {
-                                return (<h3 className = {props.timers[i].id === selected ? "selected" : "no"} id = {props.timers[i].id} onClick = {selectItem}>
-                                            {props.timers[i].id}
-                                        </h3>)
+                                if (props.timers[i].id === selected) {
+                                    return (
+                                        <h3 className = "selected" id = {props.timers[i].id} key = {i} onClick = {selectItem}>
+                                            {props.timers[i].id} <DeleteButton deleteList = {props.delete}/>
+                                        </h3>
+                                    )
+                                } else {
+                                    return (<h3 className = "no" id = {props.timers[i].id} key = {i} onClick = {selectItem}>
+                                        {props.timers[i].id}
+                                    </h3>)
+                                }
                             })
                         }
                     </ul>

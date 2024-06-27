@@ -33,7 +33,7 @@ function App() {
     setMyTimers([...myTimers, newTimer])
   }
 
-  const deleteTimer = ({id}) => {
+  const deleteTimer = (id) => {
     setMyTimers(myTimers.filter(myTimers => myTimers.id !== id)) // id가 다른 배열 요소들만 배열에 추가한 뒤 myTimers에 저장
   }
 
