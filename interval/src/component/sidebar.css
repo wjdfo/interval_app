@@ -3,13 +3,22 @@
     position : fixed;
 }
 
+.sidebar-header {
+    display : flex;
+    width : 100%;
+    margin : 0;
+    align-items : center;
+}
+
 .sidebarTitle {
+    display : flex;
+    margin-right: auto;
     padding-left: 20px;
 }
 
 .sidebarList {
-    width : 100%;
-    margin : 0;
+    width : 80%;
+    margin-right : auto;
     padding : 0;
 }
 
@@ -17,7 +26,7 @@
     width : 100%;
     display : flex;
     text-align: left;
-    margin : 10px;
+    margin-right : auto;
     padding-left : 1vw;
     border-radius : 30px;
     background-color: lightgrey;
@@ -27,7 +36,7 @@
 .no {
     width : 100%;
     text-align: left;
-    margin : 10px;
+    margin-right : auto;
     padding-left : 1vw;
     border-radius: 0;
     border-bottom : 0;
