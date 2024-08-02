@@ -1,66 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+import ReactDOM from 'react-dom/client';
+import DynamicInputForm from "./DynamicInputForm";
 import "./sidebar.css";
 
 function Sidebar(props) {
+    const width = window.innerWidth / 2;
+    const height = window.innerHeight / 2;
+    const left = window.innerWidth / 2 - width / 2;
+    const top = window.innerHeight / 2 - height / 2;
+
     const selectItem = (e) => {
-        props.handlerSetSelected(parseInt(e.target.id));
+        props.selectItem(parseInt(e.target.id));
     };
 
-    const Input = () => {
-        const [isStep, setIsStep] = useState(false);
-        const [numStep, setNumStep] = useState(0);
-        
-        const selectHandler = (e) => {
-            setNumStep(parseInt(e.target.value))
-            setIsStep(true);
-        }
+    const openWindow = () => {
+        const newWindow = window.open("inputInterface.html", '_blank', `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
 
-        const DynamicInput = () => {
-            var i;
-            var arr = [];
-            for (i = 0; i < numStep; i++) {
-                arr.push(i);
+        if (newWindow) {
+            newWindow.onload = () => {
+                const root = ReactDOM.createRoot(newWindow.document.getElementById('root'));
+    
+                return root.render(<DynamicInputForm/>);
             }
-            
-            if (isStep)
-                return (
-                    <div className="dynamic-input">
-                        {
-                            arr.map((e, i) => {
-                                return <input type = "text" id = {e} placeholder="분 단위로 입력"></input>
-                        })}
-                    </div>
-                )
         }
-
-        return (
-            <div className="input-popup">
-                <select id = "step" onChange={selectHandler}>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                <DynamicInput />
-            </div>
-        )
     }
-
-    // const addButton = Input => {
-    //     console.log(Input);
-    //     const width = window.outerWidth / 4;
-    //     const height = window.outerHeight / 3;
-    //     const left = window.screenX + (window.outerWidth - width) / 2;
-    //     const top = window.screenY + (window.outerWidth - height) / 2;
-    //     const windowFeatures = `width=${width},height=${height},left=${left},top=${top}`;
-        
-    //     const popup = window.open(Input, 'input', windowFeatures);
-
-    // }
 
     const DeleteButton = ({deleteList}) => {
         function deleteConfirm() {
@@ -81,7 +44,7 @@ function Sidebar(props) {
             <div className="sidebarMenu">
                 <div className="sidebar-header">
                 <h3 className="sidebarTitle" style = {{width : "80%", textAlign : "center"}}>즐겨찾기 리스트</h3>
-                <span style = {{color : "yellow", fontSize :"3vh", marginRight :"10px"}}>➕</span>
+                <span className = "plus" onClick = {openWindow} style = {{color : "yellow", fontSize :"3vh", marginRight :"10px", cursor : "pointer"}}>➕</span>
                 </div>
                 <ul className="sidebarList">
                     {

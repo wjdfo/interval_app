@@ -1,9 +1,0 @@
-
-const Timer = (props) => {
-    
-
-
-    return (
-
-    )
-}

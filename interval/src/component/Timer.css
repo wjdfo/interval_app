@@ -1,0 +1,22 @@
+.urgent-time {
+    display: flex;
+    width : 100%;
+    height : 100%;
+    align-items: center;
+    background-color: red;
+}
+
+.loose-time {
+    display: flex;
+    width : 100%;
+    height : 100%;
+    align-items: center;
+    padding : auto;
+    background-color: lightgrey;
+}
+
+h1 {
+    margin-left : auto;
+    margin-right : auto;
+    font-size: 15vw;
+}

@@ -41,6 +41,7 @@
     border-radius: 0;
     border-bottom : 0;
     background-color: grey;
+    transition : 0.2s;
 }
 
 .delete-button {
