@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function DynamicFormComponent() {
-    const [formFields, setFormFields] = useState([{value: '' }]);
+    // const [formFields, setFormFields] = useState([{value: '' }]);
     const [nickName, setNickName] = useState('default');
-    const [newTimer, setNewTimer] = useState([0]);
+    const [newTimer, setNewTimer] = useState([1]);
 
     const handleAddFields = () => {
-        const t = [...newTimer, 0];
+        const t = [...newTimer, 1];
         setNewTimer(t);
         // const values = [...formFields, {value: '' }];
         // setFormFields(values);
@@ -17,14 +17,11 @@ function DynamicFormComponent() {
             alert('타이머는 최소 한개 이상이어야 합니다.');
             return;
         }
-        console.log(index);
-        console.log([...newTimer]);
 
-        // const t = [...newTimer].splice(index, 1);
-        const values = [...newTimer].splice(index, 1);
+        const values = [...newTimer];
+        values.splice(index, 1);
         setNewTimer(values);
-        // console.log(t);
-        // setNewTimer(t);
+        
         // if (formFields.length === 1) {
         // alert('At least one form must remain');
         // return;
@@ -51,31 +48,29 @@ function DynamicFormComponent() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formFields);
-        // const response = fetch("http://localhost:5000/append", {
-        //     method : "POST",
-        //     headers : {
-        //         "Content-Type" : "application/json",
-        //     },
-        //     body : JSON.stringify({
-        //         "title" : formFields.title,
-        //         "userId" : "user"
-        //     }),
+
+        const response = fetch("http://localhost:5000/append", {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+            },
+            body : JSON.stringify({
+                "title" : nickName,
+                "userId" : "user",
+                "timer" : newTimer
+            }),
         
-        // }).then((res) => {
-        //     return res.json();
+        }).then((res) => {
+            alert("타이머 추가 성공!");
+            console.log(res.json);
+            return res.json();
 
-        // })
-        // .catch(() => {
-        //     console.log("Can't load any data from server");
-        //     return null;
-        // })
+        })
+        .catch(() => {
+            console.log("There's no reponse from the server.");
+            return null;
+        })
     };
-
-    useEffect(() => {
-        console.log('formFields changed:', formFields);
-        console.log(formFields.title);
-    }, [formFields]);
 
     return (
         <div className = "dynamic-input">
@@ -92,7 +87,7 @@ function DynamicFormComponent() {
                         type='number'
                         placeholder='단위 : 분'
                         name='value'
-                        value={field.value}
+                        value={newTimer[index]}
                         onChange={(e) => handleInputChange(index, e)}
                         style={{ marginRight: 10 }}
                         required
